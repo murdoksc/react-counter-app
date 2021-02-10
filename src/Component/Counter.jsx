@@ -7,21 +7,41 @@ class Counter extends Component {
   render() {
     return (
       <div>
-        <h1 className={this.badgeStyles()}>{this.formatCount()}</h1>
-        <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
-          className="btn btn-secondary "
-        >
-          INCREMENT
-        </button>
-        <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
-          className="btn btn-danger m-2"
-        >
-          DELETE
-        </button>
+        <div className="row">
+          <div className="col-1">
+            {" "}
+            <span className={this.badgeStyles()}>{this.formatCount()}</span>
+          </div>
+          <div className="col">
+            {" "}
+            <button
+              onClick={() => this.props.onDecrement(this.props.counter)}
+              className={this.diableMinus()}
+            >
+              -
+            </button>
+            <button
+              onClick={() => this.props.onIncrement(this.props.counter)}
+              className="btn btn-secondary m-2 "
+              diabled={this.props.counter.value === 0 ? "disabled" : ""}
+            >
+              +
+            </button>
+            <button
+              onClick={() => this.props.onDelete(this.props.counter.id)}
+              className="btn btn-danger"
+            >
+              x
+            </button>
+          </div>
+        </div>
       </div>
     );
+  }
+  diableMinus() {
+    return this.props.counter.value > 0
+      ? "btn btn-secondary m-2 "
+      : "btn btn-secondary m-2 disabled";
   }
   badgeStyles() {
     return this.props.counter.value <= 0
